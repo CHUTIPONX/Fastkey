@@ -1,0 +1,6 @@
+{
+  "name": "FastKey",
+  "description": "User-friendly keyboard shortcut and auto-reply utility website with easy download and step-by-step documentation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
