@@ -130,19 +130,19 @@ export const VideoGuideSection: React.FC<VideoGuideSectionProps> = ({
       id: 1,
       timecode: '00:00 - 00:15',
       title: lang === 'th' ? '1. ดาวน์โหลดไฟล์ FastKey.exe' : '1. Download FastKey.exe Executable',
-      shortDesc: lang === 'th' ? 'ดาวน์โหลดไฟล์โปรแกรม FastKey.exe (ขนาด 587 KB) และคู่มือ PDF' : 'Download FastKey.exe (587 KB) and optional manual PDF.',
+      shortDesc: lang === 'th' ? 'ดาวน์โหลดไฟล์โปรแกรม FastKey.exe (ขนาด 1.21 MB) และคู่มือ PDF' : 'Download FastKey.exe (1.21 MB) and optional manual PDF.',
       fullDesc: lang === 'th' ? [
-        'เริ่มต้นโดยการดาวน์โหลดไฟล์โปรแกรม `FastKey.exe` ซึ่งมีขนาดกะทัดรัดเพียง 587 KB',
+        'เริ่มต้นโดยการดาวน์โหลดไฟล์โปรแกรม `FastKey.exe` ซึ่งมีขนาด 1.21 MB',
         'ไฟล์ติดตั้งนี้เป็นแบบ Standalone Portable เดี่ยวๆ ไม่ต้องติดตั้งและไม่ต้องแตกไฟล์ สามารถรันได้ทันทีโดยไม่กินทรัพยากรเครื่อง',
         'มีไฟล์คู่มือการใช้งาน `คู่มือการใช้งาน.pdf` ขนาด 445 KB แนบมาให้เพื่อการศึกษาเพิ่มเติม',
       ] : [
-        'Begin by downloading the single `FastKey.exe` executable (587 KB).',
+        'Begin by downloading the single `FastKey.exe` executable (1.21 MB).',
         'The distribution is a zero-dependency standalone portable binary requiring no setup or extraction.',
         'An optional reference PDF manual is included for quick offline lookup.',
       ],
       badge: lang === 'th' ? 'ขั้นตอนที่ 1 • ดาวน์โหลด' : 'Step 1 • Download',
       keyAction: lang === 'th' ? 'คลิกดาวน์โหลดไฟล์ FastKey.exe' : 'Click Download FastKey.exe',
-      notes: lang === 'th' ? 'ตรวจสอบขนาดไฟล์ให้ตรง 587 KB เพื่อความสมบูรณ์ของข้อมูล' : 'Verify file size is 587 KB.',
+      notes: lang === 'th' ? 'ตรวจสอบขนาดไฟล์ให้ตรง 1.21 MB เพื่อความสมบูรณ์ของข้อมูล' : 'Verify file size is 1.21 MB.',
       uiFrameType: 'download',
     },
     {
@@ -259,6 +259,31 @@ export const VideoGuideSection: React.FC<VideoGuideSectionProps> = ({
       keyAction: lang === 'th' ? 'กด [ ตั้งค่าเว็บ ] > เพิ่มชื่อระบบหรือเว็บที่ต้องการ' : 'Click [ ตั้งค่าเว็บ ] > Add CRM / Web Keywords',
       notes: lang === 'th' ? 'ช่วยให้คีย์ลัดทำงานอย่างแม่นยำ ปลอดภัย ไม่รบกวนโปรแกรมอื่นในเครื่อง' : 'Prevents accidental triggers in unapproved applications.',
       uiFrameType: 'web_whitelist',
+    },
+    {
+      id: 7,
+      timecode: '01:57 - 02:18',
+      title: lang === 'th' ? '7. ใช้งานโปรไฟล์เพื่อสลับชุดคีย์ลัดและข้อความ' : '7. Use Profiles to Switch Hotkey and Message Sets',
+      shortDesc: lang === 'th' ? 'เลือกโปรไฟล์ให้ตรงกับงาน เพื่อเปลี่ยนชุดคีย์ลัดและข้อความทั้งหมดได้ทันที' : 'Choose a profile for each workflow and switch its complete hotkey and message set instantly.',
+      fullDesc: lang === 'th' ? [
+        'โปรไฟล์คือชุดข้อมูลแยกกันของโปรแกรม เหมาะสำหรับแบ่งงาน เช่น Admin-work, Sales-team หรือ Support-chat',
+        'เลือกชื่อโปรไฟล์จากเมนู "โปรไฟล์:" เพื่อสลับชุดคีย์ลัดและข้อความที่โปรแกรมจะใช้งานอยู่',
+        'กด `+ เพิ่ม` เพื่อสร้างโปรไฟล์ใหม่, กด `แก้ชื่อ` เพื่อเปลี่ยนชื่อ และกด `ลบ` เมื่อต้องการลบโปรไฟล์ที่ไม่ใช้แล้ว',
+        'ในแต่ละโปรไฟล์ ตั้งค่าคีย์ลัดหนึ่งรายการและข้อความได้ 3 ชุด เพื่อเลือกใช้คำตอบให้เหมาะกับสถานการณ์',
+        'เมื่อแก้ไขเสร็จ ให้กด `บันทึก` เพื่อเก็บค่าของโปรไฟล์นั้น จากนั้นกลับไปใช้คีย์ลัดในโปรแกรมได้ทันที',
+        'ตัวอย่าง: ใช้ Admin-work สำหรับงานหลังบ้าน, Sales-team สำหรับงานขาย และ Support-chat สำหรับตอบลูกค้า โดยข้อมูลแต่ละโปรไฟล์ไม่ปะปนกัน',
+      ] : [
+        'A profile is an isolated data set for a workflow, such as Admin-work, Sales-team, or Support-chat.',
+        'Select a profile from the "โปรไฟล์:" menu to switch the active hotkeys and messages.',
+        'Click `+ เพิ่ม` to create one, `แก้ชื่อ` to rename it, or `ลบ` to remove an unused profile.',
+        'Each profile can contain hotkeys with three message sets for different response situations.',
+        'Click `บันทึก` after editing, then use the updated hotkeys immediately in the desktop app.',
+        'Keep separate profiles for back-office, sales, and customer support work so their data stays organized.',
+      ],
+      badge: lang === 'th' ? 'ขั้นตอนที่ 7 • โปรไฟล์' : 'Step 7 • Profiles',
+      keyAction: lang === 'th' ? 'เลือกโปรไฟล์ > แก้ไขคีย์ลัด/ข้อความ > กด [ บันทึก ]' : 'Select profile > Edit hotkeys/messages > Click [ Save ]',
+      notes: lang === 'th' ? 'โปรไฟล์ช่วยแยกชุดคำตอบตามลักษณะงาน และสลับใช้งานได้ทันที' : 'Profiles keep workflows separate and switch instantly.',
+      uiFrameType: 'settings',
     },
   ];
 
@@ -450,7 +475,7 @@ export const VideoGuideSection: React.FC<VideoGuideSectionProps> = ({
                 }`}
               >
                 <FileText className="w-3.5 h-3.5" />
-                <span>{lang === 'th' ? 'ภาพทุกขั้นตอน (6 สเต็ป)' : 'All 6 Steps'}</span>
+                <span>{lang === 'th' ? 'ภาพทุกขั้นตอน (7 สเต็ป)' : 'All 7 Steps'}</span>
               </button>
             </div>
           </div>
@@ -497,7 +522,7 @@ export const VideoGuideSection: React.FC<VideoGuideSectionProps> = ({
                           <div className="text-xs text-zinc-400 font-mono-code">โฟลเดอร์หลัก &gt; Hotkey &gt; Release v2.4.0</div>
                         </div>
                       </div>
-                      <span className="text-xs px-2.5 py-1 rounded bg-white/10 text-white font-mono-code">587 KB</span>
+                      <span className="text-xs px-2.5 py-1 rounded bg-white/10 text-white font-mono-code">1.21 MB</span>
                     </div>
 
                     <div className="space-y-3 font-mono-code text-xs sm:text-sm">
@@ -515,7 +540,7 @@ export const VideoGuideSection: React.FC<VideoGuideSectionProps> = ({
                           <span className="text-[10px] px-2 py-0.5 rounded bg-white text-black font-extrabold uppercase">Ready</span>
                         </div>
                         <div className="flex items-center gap-3">
-                          <span className="text-zinc-300">587 KB</span>
+                          <span className="text-zinc-300">1.21 MB</span>
                           <div className="p-1.5 rounded-lg bg-white text-black">
                             <Download className="w-4 h-4" />
                           </div>
@@ -553,7 +578,7 @@ export const VideoGuideSection: React.FC<VideoGuideSectionProps> = ({
                             <Laptop className="w-5 h-5 text-black" />
                             <div>
                               <div>FastKey.exe</div>
-                              <div className="text-[10px] text-zinc-600 font-normal font-mono-code">Application • 587 KB</div>
+                              <div className="text-[10px] text-zinc-600 font-normal font-mono-code">Application • 1.21 MB</div>
                             </div>
                           </div>
                           <MousePointer className="w-4 h-4 fill-black" />

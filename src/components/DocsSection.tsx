@@ -89,6 +89,51 @@ export const DocsSection: React.FC<DocsSectionProps> = ({
         } shadow-xl space-y-6`}
       >
         <div className="flex items-center gap-3 pb-4 border-b border-zinc-800/80">
+          <Sliders className="w-6 h-6 text-red-400" />
+          <div>
+            <h2 className={`font-display text-lg sm:text-xl font-bold ${isDark ? 'text-white' : 'text-zinc-950'}`}>
+              {lang === 'th' ? 'การจัดการโปรไฟล์ในโปรแกรม' : 'Managing profiles in the app'}
+            </h2>
+            <p className={`text-xs ${isDark ? 'text-zinc-400' : 'text-zinc-600'}`}>
+              {lang === 'th' ? 'โปรไฟล์ใช้เก็บชุดคีย์ลัดและข้อความหลายชุดสำหรับแต่ละงาน' : 'Profiles store hotkeys and multiple message sets for each workflow.'}
+            </p>
+          </div>
+        </div>
+        <ol className={`grid gap-3 text-sm leading-relaxed sm:grid-cols-2 ${isDark ? 'text-zinc-300' : 'text-zinc-700'}`}>
+          {(lang === 'th' ? [
+            'เลือกโปรไฟล์จากช่อง “โปรไฟล์” เช่น Admin-work หรือ Sales-team',
+            'กด “เพิ่ม” เพื่อสร้างโปรไฟล์ใหม่ หรือ “แก้ชื่อ” เพื่อเปลี่ยนชื่อโปรไฟล์',
+            'พิมพ์คีย์ลัดที่ต้องการ เช่น ww, 33 หรือ กป',
+            'ใส่ข้อความชุดที่ 1, 2 และ 3 เพื่อให้คีย์ลัดเดียวเลือกใช้ข้อความได้หลายแบบ',
+            'กด “เพิ่ม” เพื่อเพิ่มแถวใหม่ หรือเลือกแถวในตารางเพื่อแก้ไขข้อมูลเดิม',
+            'ใช้ช่องค้นหาข้อมูลเพื่อค้นหาคีย์ลัดหรือข้อความในโปรไฟล์',
+            'เปิด “ส่งออโต้” หากต้องการให้โปรแกรมส่งข้อความทันทีหลังเรียกใช้คีย์ลัด',
+            'กด “บันทึก” ทุกครั้งหลังแก้ไข และลบโปรไฟล์ได้จากปุ่ม “ลบ”',
+          ] : [
+            'Select a profile such as Admin-work or Sales-team.',
+            'Use Add to create a profile or Rename to change its name.',
+            'Enter a hotkey such as ww, 33, or a Thai shortcut.',
+            'Fill message sets 1, 2, and 3 to keep multiple responses on one hotkey.',
+            'Use Add for a new row, or select a table row to edit it.',
+            'Search hotkeys and messages with the search field.',
+            'Enable Auto-send to send the message immediately after using a hotkey.',
+            'Click Save after changes. Delete removes the selected profile.',
+          ]).map((step, index) => (
+            <li key={step} className="flex gap-3 rounded-xl border border-zinc-800/70 p-3">
+              <span className="font-mono-code font-bold text-red-400">{index + 1}.</span>
+              <span>{step}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      {/* 3. Frequently Asked Questions (FAQ) - Simple & Clear */}
+      <div
+        className={`p-6 sm:p-8 rounded-3xl border ${
+          isDark ? 'bg-[#0E0E12] border-zinc-800' : 'bg-white border-zinc-200'
+        } shadow-xl space-y-6`}
+      >
+        <div className="flex items-center gap-3 pb-4 border-b border-zinc-800/80">
           <HelpCircle className="w-6 h-6 text-white" />
           <div>
             <h2

@@ -63,7 +63,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className={`font-display text-xl sm:text-2xl font-black tracking-tight ${isDark ? 'text-white' : 'text-zinc-950'}`}>
                 FastKey
               </span>
-              <span className="text-[10px] uppercase font-mono-code font-bold px-1.5 py-0.5 rounded border border-white/20 bg-white/10 text-white shadow-sm">
+              <span className={`text-[10px] uppercase font-mono-code font-bold px-1.5 py-0.5 rounded border shadow-sm ${isDark ? 'border-white/20 bg-white/10 text-white' : 'border-zinc-300 bg-zinc-100 text-zinc-700'}`}>
                 v2.4
               </span>
             </div>
@@ -74,7 +74,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </button>
 
         {/* Center Nav Tabs */}
-        <nav className="hidden sm:flex items-center gap-1 p-1 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 backdrop-blur-md">
+        <nav className={`hidden sm:flex items-center gap-1 p-1 rounded-2xl border backdrop-blur-md ${isDark ? 'bg-zinc-900/60 border-zinc-800/80' : 'bg-zinc-100/90 border-zinc-200'}`}>
           {navItems.map((item) => {
             const isActive = activeTab === item.id;
             return (
@@ -85,7 +85,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all relative
                   ${isActive
                     ? 'text-black bg-white shadow-[0_0_15px_rgba(255,255,255,0.3)] font-bold'
-                    : 'text-zinc-400 hover:text-white hover:bg-white/5'
+                    : (isDark ? 'text-zinc-400 hover:text-white hover:bg-white/5' : 'text-zinc-600 hover:text-zinc-950 hover:bg-white')
                   }
                 `}
               >
@@ -160,7 +160,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       {/* Mobile subnav row (visible only on small screens < sm) */}
-      <div className="sm:hidden flex items-center justify-around px-3 py-1.5 border-t border-zinc-800/60 bg-[#0A0A0B]/95 backdrop-blur-md text-xs">
+      <div className={`sm:hidden flex items-center justify-around px-3 py-1.5 border-t backdrop-blur-md text-xs ${isDark ? 'border-zinc-800/60 bg-[#0A0A0B]/95' : 'border-zinc-200 bg-white/95'}`}>
         {navItems.map((item) => (
           <button
             key={item.id}
@@ -168,7 +168,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             className={`flex-1 py-1.5 text-center rounded-lg font-semibold transition-colors ${
               activeTab === item.id
                 ? 'bg-white text-black font-bold shadow-sm'
-                : 'text-zinc-400 hover:text-white'
+                : (isDark ? 'text-zinc-400 hover:text-white' : 'text-zinc-600 hover:text-zinc-950')
             }`}
           >
             {item.label}

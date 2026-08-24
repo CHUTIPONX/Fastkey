@@ -36,7 +36,7 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
   const actions: PaletteAction[] = [
     {
       id: 'download',
-      title: 'Download FastKey.exe (v2.4.0, 587 KB)',
+      title: 'Download',
       category: 'General',
       icon: <Download className="w-4 h-4 text-white" />,
       shortcut: ['Ctrl', 'D'],

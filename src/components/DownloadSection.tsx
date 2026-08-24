@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Language, translations } from '../locales';
 import {
   Download,
+  AlertTriangle,
   FileText,
   ShieldCheck,
   Zap,
@@ -34,7 +35,6 @@ export const DownloadSection: React.FC<DownloadSectionProps> = ({
   // Actual Google Drive link
   const googleDriveUrl =
     'https://drive.google.com/drive/u/0/folders/1PufiPZax-6bnuSh7OF5qrux7Cc6sdXtF';
-  const fastKeyDownloadUrl = '/FastKey.exe';
   const virusTotalUrl =
     'https://www.virustotal.com/gui/file/6ae4fedef470f68b6fc0850979b014d7f00922000c6ea617cfe3e0bfa67db5e0?nocache=1';
 
@@ -50,7 +50,7 @@ export const DownloadSection: React.FC<DownloadSectionProps> = ({
     <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-16">
       {/* 1. Hero & Welcome Section */}
       <div className="text-center space-y-6 max-w-3xl mx-auto">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/5 text-xs font-mono-code font-bold text-zinc-200 shadow-sm">
+        <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-xs font-mono-code font-bold shadow-sm ${isDark ? 'border-white/20 bg-white/5 text-zinc-200' : 'border-zinc-300 bg-zinc-100 text-zinc-700'}`}>
           <span>{t.download.badge}</span>
         </div>
 
@@ -72,13 +72,14 @@ export const DownloadSection: React.FC<DownloadSectionProps> = ({
 
         {/* Primary Action Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-          <a
-            href={fastKeyDownloadUrl}
+          <button
+            type="button"
+            onClick={() => window.location.assign('/FastKey.exe')}
             className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white text-black font-extrabold text-base shadow-[0_0_25px_rgba(255,255,255,0.3)] hover:bg-zinc-200 hover:scale-[1.02] transition-all flex items-center justify-center gap-3 group"
           >
             <Download className="w-5 h-5 group-hover:translate-y-0.5 transition-transform" />
             <span>{t.download.directDownloadBtn}</span>
-          </a>
+          </button>
 
           <button
             onClick={onNavigateToDocs}
@@ -97,6 +98,20 @@ export const DownloadSection: React.FC<DownloadSectionProps> = ({
           {t.download.filePlatform} • {t.download.fileSize}
         </div>
       </div>
+
+      <section className={`flex items-start gap-4 rounded-2xl border p-5 ${isDark ? 'border-amber-400/30 bg-amber-400/10' : 'border-amber-300 bg-amber-50'}`} role="alert">
+        <AlertTriangle className="mt-0.5 h-6 w-6 shrink-0 text-amber-400" />
+        <div>
+          <h2 className={`font-display text-base font-bold ${isDark ? 'text-amber-200' : 'text-amber-900'}`}>
+            {lang === 'th' ? 'คำเตือนสำคัญ: ห้ามลบไฟล์ข้อมูล' : 'Important: Do not delete data files'}
+          </h2>
+          <p className={`mt-1 text-sm leading-relaxed ${isDark ? 'text-amber-100/80' : 'text-amber-800'}`}>
+            {lang === 'th'
+              ? 'ห้ามลบไฟล์ data.ini และ profiles_master.ini เพราะเป็นไฟล์ข้อมูลที่จำเป็นต่อการทำงานของโปรแกรม'
+              : 'Do not delete data.ini or profiles_master.ini. These data files are required for the program to work correctly.'}
+          </p>
+        </div>
+      </section>
 
       {/* 2. Download File Cards (Clear, Big, Simple) */}
       <div
@@ -129,10 +144,10 @@ export const DownloadSection: React.FC<DownloadSectionProps> = ({
         </div>
 
         {/* Files Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 items-stretch gap-4 md:grid-cols-3">
           {/* Main App Standalone EXE */}
           <div
-            className={`h-full flex flex-col p-5 rounded-2xl border transition-all ${
+            className={`flex h-full min-h-[330px] flex-col rounded-2xl border p-5 transition-all ${
               isDark
                 ? 'bg-[#15151B] border-white/20 shadow-lg'
                 : 'bg-zinc-50 border-zinc-300'
@@ -156,7 +171,7 @@ export const DownloadSection: React.FC<DownloadSectionProps> = ({
                   </div>
                 </div>
               </div>
-              <span className="text-[10px] font-mono-code uppercase px-2 py-0.5 rounded bg-white/10 text-white font-bold">
+              <span className={`text-[10px] font-mono-code uppercase px-2 py-0.5 rounded font-bold ${isDark ? 'bg-white/10 text-white' : 'bg-zinc-200 text-zinc-700'}`}>
                 {t.download.portableTag}
               </span>
             </div>
@@ -167,18 +182,19 @@ export const DownloadSection: React.FC<DownloadSectionProps> = ({
                 : 'Complete standalone FastKey.exe executable. No setup and no extraction required.'}
             </p>
 
-            <a
-              href={fastKeyDownloadUrl}
+            <button
+              type="button"
+              onClick={() => window.location.assign('/FastKey.exe')}
               className="w-full mt-auto py-3 px-4 rounded-xl bg-white text-black font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md hover:bg-zinc-200 transition-colors"
             >
               <Download className="w-4 h-4" />
               <span>{t.download.directDownloadBtn}</span>
-            </a>
+            </button>
           </div>
 
           {/* Video Guide (Google Drive Video File) */}
           <div
-            className={`h-full flex flex-col p-5 rounded-2xl border transition-all ${
+            className={`flex h-full min-h-[330px] flex-col rounded-2xl border p-5 transition-all ${
               isDark
                 ? 'bg-[#121217] border-zinc-800'
                 : 'bg-zinc-50 border-zinc-200'
@@ -202,7 +218,7 @@ export const DownloadSection: React.FC<DownloadSectionProps> = ({
                   </div>
                 </div>
               </div>
-              <span className="text-[10px] font-mono-code uppercase px-2 py-0.5 rounded bg-white/10 text-white font-bold">
+              <span className={`text-[10px] font-mono-code uppercase px-2 py-0.5 rounded font-bold ${isDark ? 'bg-white/10 text-white' : 'bg-zinc-200 text-zinc-700'}`}>
                 Video Guide
               </span>
             </div>
@@ -230,7 +246,7 @@ export const DownloadSection: React.FC<DownloadSectionProps> = ({
 
           {/* User Manual PDF */}
           <div
-            className={`h-full flex flex-col p-5 rounded-2xl border transition-all ${
+            className={`flex h-full min-h-[330px] flex-col rounded-2xl border p-5 transition-all ${
               isDark
                 ? 'bg-[#121217] border-zinc-800'
                 : 'bg-zinc-50 border-zinc-200'
@@ -282,11 +298,11 @@ export const DownloadSection: React.FC<DownloadSectionProps> = ({
         </div>
 
         {/* Security / VirusTotal Notice Box */}
-        <div className="mt-6 p-4 rounded-2xl bg-black/40 border border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className={`mt-6 p-4 rounded-2xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 ${isDark ? 'bg-black/40 border-zinc-800' : 'bg-zinc-100 border-zinc-200'}`}>
           <div className="flex items-center gap-3">
-            <ShieldCheck className="w-5 h-5 text-white shrink-0" />
-            <div className="text-xs text-zinc-300 leading-relaxed">
-              <span className="font-bold text-white">{t.download.securityBadge}:</span>{' '}
+            <ShieldCheck className={`w-5 h-5 shrink-0 ${isDark ? 'text-white' : 'text-zinc-700'}`} />
+            <div className={`text-xs leading-relaxed ${isDark ? 'text-zinc-300' : 'text-zinc-700'}`}>
+              <span className={`font-bold ${isDark ? 'text-white' : 'text-zinc-950'}`}>{t.download.securityBadge}:</span>{' '}
               {t.download.securityDesc}
             </div>
           </div>
@@ -295,7 +311,7 @@ export const DownloadSection: React.FC<DownloadSectionProps> = ({
             href={virusTotalUrl}
             target="_blank"
             rel="noreferrer"
-            className="shrink-0 inline-flex items-center gap-1.5 text-xs font-mono-code text-zinc-300 hover:text-white underline"
+            className={`shrink-0 inline-flex items-center gap-1.5 text-xs font-mono-code underline ${isDark ? 'text-zinc-300 hover:text-white' : 'text-zinc-700 hover:text-zinc-950'}`}
           >
             <span>{t.download.viewVirusTotal}</span>
             <ExternalLink className="w-3.5 h-3.5" />

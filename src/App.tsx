@@ -13,12 +13,72 @@ import { DocsSection } from './components/DocsSection';
 import { DownloadSection } from './components/DownloadSection';
 import { Footer } from './components/Footer';
 import { CommandPaletteModal } from './components/CommandPaletteModal';
+import { ShieldAlert } from 'lucide-react';
+
+const warningPhrases = [
+  'ของคนอื่น อย่าเคลมครับ',
+  'โค้ดไม่ใช่ของแจกครับ',
+  'เครดิตควรมี ไม่ใช่แค่โค้ด',
+  'เก่งจริง คงเขียนเองได้',
+  'ยืมได้ แต่ขออนุญาตก่อน',
+  'เอาของคนอื่น ไม่เรียกเก่งนะ',
+  'เครดิตหายไปไหนครับ',
+  'โค้ดผม ไม่ใช่ผลงานคุณ',
+  'ความสามารถไม่ใช่การคัดลอก',
+  'อยากเก่ง ลองเขียนเองครับ',
+  'ขโมยโค้ด ไม่เพิ่มสกิลครับ',
+  'ของใคร ก็ให้เครดิตเจ้าของ',
+  'Copy ได้ แต่ความเก่ง Copy ไม่ได้',
+  'เอาโค้ดไป เอาความสามารถไปด้วยไหม',
+  'ผลงานคนอื่น อย่าเอาชื่อตัวเอง',
+  'ถ้าจะใช้ อย่างน้อยให้เกียรติกัน',
+  'โค้ดมีเจ้าของ ไม่ใช่ของสาธารณะ',
+  'เครดิตไม่เสียเงินนะครับ',
+  'อย่าเอาความพยายามคนอื่นไปฟรี ๆ',
+  'เขียนเองสักครั้ง จะเข้าใจครับ',
+  'งานใครงานมัน อย่ามั่วครับ',
+  'ก๊อปอย่างเดียวไม่เรียกพัฒนานะ',
+  'เอาไปใช้ก็อย่าลืมที่มา',
+  'ของฟรีไม่มีในโลกครับ',
+  'อย่าเอาความขยันคนอื่นไปเป็นของตัวเอง',
+  'เปิดดูได้ แต่อย่าเคลม',
+  'เห็นโค้ดไม่ได้แปลว่าเป็นของคุณ',
+  'มารยาทพื้นฐานมีไหมครับ',
+  'เครดิตหาย หรือแกล้งลืมครับ',
+  'เขียนเองเหนื่อยหน่อย แต่เท่กว่า',
+  'อย่าขโมยแล้วทำเป็นไม่รู้',
+  'โค้ดมีที่มา อย่าทำเป็นลืม',
+  'ก๊อปงานไม่ใช่ความสามารถพิเศษ',
+  'อย่าหยิบความพยายามคนอื่นไปหน้าตาเฉย',
+  'ผลงานไม่ใช่ของกลางครับ',
+  'เคารพเจ้าของงานด้วยครับ',
+  'อย่าเอาความคิดคนอื่นไปขาย',
+  'ก๊อปโค้ดไม่ได้ก๊อปเครดิตนะ',
+  'อย่าทำเหมือนคิดเองครับ',
+  'งานคนอื่น อย่าตีเนียน',
+  'ใช้ได้ แต่อย่าลืมบอกที่มา',
+  'ความพยายามคนอื่นมีราคาครับ',
+  'อย่าข้ามขั้นตอนให้เกียรติกัน',
+  'เห็นแล้วก็อย่าเอาไปเคลม',
+  'เขียนเองดีกว่าไหมครับ',
+  'อย่าหล่อด้วยงานคนอื่น',
+  'เครดิตคือมารยาทพื้นฐาน',
+  'อย่าเอาของคนอื่นมาแต่งชื่อใหม่',
+  'ก๊อปได้ แต่คนเขียนเขารู้ครับ',
+  'อย่าทำเป็นไม่เห็นเจ้าของงาน',
+  'โค้ดดีเพราะคนเขียน ไม่ใช่คนก๊อป',
+  'เอาไปใช้ก็บอกกันตรงๆ',
+  'อย่าปลอมว่าเป็นผลงานตัวเอง',
+  'ให้เกียรติกันหน่อยครับ',
+  'เจ้าของงานยังอยู่ตรงนี้ครับ',
+];
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<NavigationTab>('download');
   const [isDark, setIsDark] = useState(true);
   const [lang, setLang] = useState<Language>('th');
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
+  const [isDevToolsWarningOpen, setIsDevToolsWarningOpen] = useState(false);
 
   // Initialize theme
   useEffect(() => {
@@ -36,6 +96,18 @@ export default function App() {
   // Global hotkeys (Ctrl+K for palette, Ctrl+D for download)
   useEffect(() => {
     const handleGlobalKeyDown = (e: KeyboardEvent) => {
+      const blockedDevToolsShortcut =
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) ||
+        (e.ctrlKey && e.key.toLowerCase() === 'u');
+
+      if (blockedDevToolsShortcut) {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDevToolsWarningOpen(true);
+        return;
+      }
+
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         setIsPaletteOpen((prev) => !prev);
@@ -51,6 +123,12 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleGlobalKeyDown);
   }, []);
 
+  useEffect(() => {
+    const blockContextMenu = (e: MouseEvent) => e.preventDefault();
+    document.addEventListener('contextmenu', blockContextMenu);
+    return () => document.removeEventListener('contextmenu', blockContextMenu);
+  }, []);
+
   const toggleTheme = () => {
     setIsDark((prev) => !prev);
   };
@@ -63,6 +141,47 @@ export default function App() {
     setActiveTab(tab);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  if (isDevToolsWarningOpen) {
+    return (
+      <div className="fixed inset-0 z-[200] flex min-h-screen items-center justify-center overflow-auto bg-[#09090B] px-6 py-12 text-center text-white">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+          {warningPhrases.map((phrase, index) => (
+            <span
+              key={`${phrase}-${index}`}
+              className="warning-float absolute whitespace-nowrap font-mono-code text-sm font-bold text-red-500/65 sm:text-base"
+              style={{
+                left: `${(index * 37) % 105 - 5}%`,
+                top: `${(index * 61) % 100}%`,
+                animationDelay: `${(index % 7) * -1.8}s`,
+                animationDuration: `${12 + (index % 6) * 2}s`,
+              }}
+            >
+              {phrase}
+            </span>
+          ))}
+        </div>
+        <div className="max-w-5xl">
+          <div className="warning-icon-gloss mx-auto mb-8" aria-hidden="true">
+            <ShieldAlert className="h-20 w-20 text-red-500" />
+          </div>
+          <p className="mb-6 whitespace-nowrap font-display text-[20px] font-normal leading-tight">
+            รบกวนอย่ายุ่งกับโค้ดของผมนะครับ ของคนอื่นควรให้เกียรติกันหน่อย
+          </p>
+          <p className="mb-10 text-lg font-bold text-zinc-400 sm:text-2xl">
+            สมองหัดคิดเองบ้าง อย่ามัวแต่ขโมยโค้ดชาวบ้าน
+          </p>
+          <button
+            type="button"
+            onClick={() => setIsDevToolsWarningOpen(false)}
+            className="rounded-xl bg-white px-6 py-3 text-sm font-bold text-black transition-colors hover:bg-zinc-200"
+          >
+            กลับไปทำตัวปกติ
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -118,6 +237,7 @@ export default function App() {
             />
           </div>
         )}
+
       </main>
 
       {/* 6. Footer */}
