@@ -93,40 +93,62 @@ export default function App() {
     }
   }, [isDark]);
 
-  // Global hotkeys (Ctrl+K for palette, Ctrl+D for download)
+  // Keep the page in the protected state for browser inspection shortcuts and copy actions.
   useEffect(() => {
     const handleGlobalKeyDown = (e: KeyboardEvent) => {
+      if (e.isComposing) return;
+
+      const key = e.key.toLowerCase();
       const blockedDevToolsShortcut =
         e.key === 'F12' ||
-        (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) ||
-        (e.ctrlKey && e.key.toLowerCase() === 'u');
+        ((e.ctrlKey || e.metaKey) && e.shiftKey && ['i', 'j', 'c'].includes(key)) ||
+        ((e.ctrlKey || e.metaKey) && key === 'u');
 
       if (blockedDevToolsShortcut) {
         e.preventDefault();
         e.stopPropagation();
+        e.stopImmediatePropagation();
         setIsDevToolsWarningOpen(true);
         return;
       }
 
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      if ((e.metaKey || e.ctrlKey) && key === 'k') {
         e.preventDefault();
         setIsPaletteOpen((prev) => !prev);
       }
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'd') {
+      if ((e.metaKey || e.ctrlKey) && key === 'd') {
         e.preventDefault();
         setActiveTab('download');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     };
 
-    window.addEventListener('keydown', handleGlobalKeyDown);
-    return () => window.removeEventListener('keydown', handleGlobalKeyDown);
+    window.addEventListener('keydown', handleGlobalKeyDown, { capture: true });
+    return () => window.removeEventListener('keydown', handleGlobalKeyDown, { capture: true });
   }, []);
 
   useEffect(() => {
     const blockContextMenu = (e: MouseEvent) => e.preventDefault();
+    const blockCopy = (e: ClipboardEvent) => {
+      e.preventDefault();
+      setIsDevToolsWarningOpen(true);
+    };
+    const blockSelection = (e: Event) => e.preventDefault();
+    const blockDrag = (e: DragEvent) => e.preventDefault();
+
     document.addEventListener('contextmenu', blockContextMenu);
-    return () => document.removeEventListener('contextmenu', blockContextMenu);
+    document.addEventListener('copy', blockCopy);
+    document.addEventListener('cut', blockCopy);
+    document.addEventListener('selectstart', blockSelection);
+    document.addEventListener('dragstart', blockDrag);
+
+    return () => {
+      document.removeEventListener('contextmenu', blockContextMenu);
+      document.removeEventListener('copy', blockCopy);
+      document.removeEventListener('cut', blockCopy);
+      document.removeEventListener('selectstart', blockSelection);
+      document.removeEventListener('dragstart', blockDrag);
+    };
   }, []);
 
   const toggleTheme = () => {
@@ -165,19 +187,15 @@ export default function App() {
           <div className="warning-icon-gloss mx-auto mb-8" aria-hidden="true">
             <ShieldAlert className="h-20 w-20 text-red-500" />
           </div>
-          <p className="mb-6 whitespace-nowrap font-display text-[20px] font-normal leading-tight">
+          <p className="mb-6 font-display text-[20px] font-normal leading-tight">
             รบกวนอย่ายุ่งกับโค้ดของผมนะครับ ของคนอื่นควรให้เกียรติกันหน่อย
           </p>
           <p className="mb-10 text-lg font-bold text-zinc-400 sm:text-2xl">
             สมองหัดคิดเองบ้าง อย่ามัวแต่ขโมยโค้ดชาวบ้าน
           </p>
-          <button
-            type="button"
-            onClick={() => setIsDevToolsWarningOpen(false)}
-            className="rounded-xl bg-white px-6 py-3 text-sm font-bold text-black transition-colors hover:bg-zinc-200"
-          >
-            กลับไปทำตัวปกติ
-          </button>
+          <p className="text-sm font-semibold text-red-400/80">
+            หน้านี้จบแค่นี้ครับ
+          </p>
         </div>
       </div>
     );
