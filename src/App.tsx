@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+const DOWNLOAD_URL = 'https://github.com/CHUTIPONX/Fastkey/raw/refs/heads/main/public/FastKey.exe';
+const SHA256_HASH = '4bf4af9afe65dbd3e15ff48c3ec4c9b8c89fda89a13945f6807a45ed774ee275';
+
 type MockupTab = 'quick-actions' | 'hotkey-matrix' | 'system-hooks' | 'preferences';
 
 const navItems = [
@@ -38,8 +41,19 @@ export default function App() {
     window.setTimeout(() => setToast(null), 2600);
   };
 
-  const showDownloadUnavailable = () => {
-    notify('Downloads are currently unavailable');
+  const showDownload = () => {
+    window.location.assign(DOWNLOAD_URL);
+  };
+
+  const copySha = async () => {
+    try {
+      await navigator.clipboard.writeText(SHA256_HASH);
+      setCopied(true);
+      notify('SHA-256 copied to clipboard');
+      window.setTimeout(() => setCopied(false), 2200);
+    } catch {
+      notify('Copy is unavailable in this browser');
+    }
   };
 
   return (
@@ -123,11 +137,11 @@ export default function App() {
                 <div className="mt-7 flex flex-wrap gap-3">
                   <button
                     type="button"
-                    onClick={showDownloadUnavailable}
-                    className="inline-flex cursor-not-allowed items-center gap-3 rounded-full bg-slate-300 px-7 py-3.5 font-semibold text-slate-600"
+                    onClick={showDownload}
+                    className="inline-flex items-center gap-3 rounded-full bg-slate-900 px-7 py-3.5 font-semibold text-white shadow-[0_12px_30px_rgba(15,23,42,0.22)] transition hover:-translate-y-0.5 hover:bg-black"
                   >
                     <Icon name="download" className="text-[20px]" />
-                    Download unavailable
+                    Download for Windows
                   </button>
                   <button
                     onClick={() => scrollToSection('features', setActiveNav)}
@@ -286,14 +300,14 @@ export default function App() {
                 STABLE PRODUCTION BUILD
               </span>
               <h2 className="mt-4 font-headline-xl font-bold tracking-tight">Download Fastkeyx</h2>
-              <p className="mx-auto mt-2 max-w-md font-body-lg text-slate-600">The Windows package is currently unavailable for download.</p>
+              <p className="mx-auto mt-2 max-w-md font-body-lg text-slate-600">Get Fastkeyx for Windows as a compact portable executable.</p>
 
               <div className="mx-auto mt-8 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4">
                 {[
                   ['Version', 'v1.0.0'],
                   ['Platform', 'Windows'],
                   ['Architecture', '64-bit'],
-                  ['Package', 'Not available'],
+                  ['Package', 'Fastkeyx.exe'],
                 ].map(([label, value]) => (
                   <div key={label} className="rounded-xl border border-slate-200/80 bg-slate-50 p-3.5">
                     <div className="font-label-mono-sm uppercase text-slate-500">{label}</div>
@@ -305,16 +319,20 @@ export default function App() {
               <div className="mt-8 flex justify-center">
                 <button
                   type="button"
-                  onClick={showDownloadUnavailable}
-                  className="inline-flex cursor-not-allowed items-center gap-3 rounded-full bg-slate-300 px-9 py-4 font-semibold text-slate-600"
+                  onClick={showDownload}
+                  className="inline-flex items-center gap-3 rounded-full bg-slate-900 px-9 py-4 font-semibold text-white shadow-[0_12px_30px_rgba(15,23,42,0.25)] transition hover:-translate-y-0.5 hover:bg-black"
                 >
                   <Icon name="download" className="text-[23px]" />
-                  Downloads unavailable
+                  Download Fastkeyx
                 </button>
               </div>
 
               <div className="mx-auto mt-8 flex max-w-2xl flex-wrap items-center justify-center gap-3 border-t border-slate-200 pt-5 font-label-mono-sm text-xs text-slate-600">
-                <span>Windows Application</span><span>•</span><span>Download temporarily disabled</span>
+                <span>Windows Application</span><span>•</span><span>Free Download</span><span>•</span>
+                <button onClick={copySha} className="inline-flex items-center gap-1 hover:text-slate-950">
+                  {copied ? 'SHA-256 Copied!' : 'SHA-256: ' + SHA256_HASH.slice(0, 8) + '…'}
+                  <Icon name={copied ? 'check' : 'content_copy'} className="text-[13px]" />
+                </button>
               </div>
             </div>
           </section>
@@ -378,7 +396,7 @@ export default function App() {
                 ))}
               </div>
               <div className="mt-6 border-t border-slate-200 pt-4 font-label-mono-sm text-xs text-slate-500">
-                Download package currently unavailable
+                Fastkeyx.exe • Size: 1.5 MB • SHA256: {SHA256_HASH}
               </div>
             </article>
           </section>
