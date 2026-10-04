@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const DOWNLOAD_URL = 'https://github.com/CHUTIPONX/Fastkey/raw/refs/heads/main/public/FastKey.exe';
+const DOWNLOAD_URL = 'https://github.com/CHUTIPONX/Fastkey/raw/1bd80a927c966ca580fffcc73377318c0e3b64ad/public/Fastkeyx.exe';
 const SHA256_HASH = '4bf4af9afe65dbd3e15ff48c3ec4c9b8c89fda89a13945f6807a45ed774ee275';
 
 type MockupTab = 'quick-actions' | 'hotkey-matrix' | 'system-hooks' | 'preferences';
