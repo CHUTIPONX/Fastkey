@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 const DOWNLOAD_URL = 'https://github.com/CHUTIPONX/Fastkey/raw/refs/heads/main/public/Fastkeyx-Setup.exe';
+const SPECIAL_DOWNLOAD_URL = 'https://github.com/CHUTIPONX/Fastkey/raw/refs/heads/main/public/%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%9E%E0%B8%B5%E0%B9%88%E0%B9%86%E0%B8%97%E0%B8%B8%E0%B8%81%E0%B8%84%E0%B8%99%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B8%9A.exe';
 const SHA256_HASH = '4bf4af9afe65dbd3e15ff48c3ec4c9b8c89fda89a13945f6807a45ed774ee275';
 
 type MockupTab = 'quick-actions' | 'hotkey-matrix' | 'system-hooks' | 'preferences';
@@ -43,6 +44,10 @@ export default function App() {
 
   const showDownload = () => {
     window.location.assign(DOWNLOAD_URL);
+  };
+
+  const showSpecialDownload = () => {
+    window.location.assign(SPECIAL_DOWNLOAD_URL);
   };
 
   const copySha = async () => {
@@ -324,6 +329,17 @@ export default function App() {
                 >
                   <Icon name="download" className="text-[23px]" />
                   Download Fastkeyx
+                </button>
+              </div>
+
+              <div className="mt-3 flex justify-center">
+                <button
+                  type="button"
+                  onClick={showSpecialDownload}
+                  className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3 font-semibold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50"
+                >
+                  <Icon name="download" className="text-[19px] text-sky-600" />
+                  Download รักพี่ๆทุกคนครับ.exe
                 </button>
               </div>
 
