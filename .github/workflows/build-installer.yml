@@ -7,6 +7,7 @@ on:
     paths:
       - "installer/Fastkeyx.iss"
       - "public/Fastkeyx.exe"
+      - ".github/workflows/build-installer.yml"
 
 permissions:
   contents: write
