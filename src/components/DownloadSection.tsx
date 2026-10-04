@@ -36,9 +36,9 @@ export const DownloadSection: React.FC<DownloadSectionProps> = ({
   const googleDriveUrl =
     'https://drive.google.com/drive/u/0/folders/1PufiPZax-6bnuSh7OF5qrux7Cc6sdXtF';
   const virusTotalUrl =
-    'https://www.virustotal.com/gui/file/6ae4fedef470f68b6fc0850979b014d7f00922000c6ea617cfe3e0bfa67db5e0?nocache=1';
+    'https://www.virustotal.com/gui/file/4bf4af9afe65dbd3e15ff48c3ec4c9b8c89fda89a13945f6807a45ed774ee275?nocache=1';
 
-  const sha256 = '6ae4fedef470f68b6fc0850979b014d7f00922000c6ea617cfe3e0bfa67db5e0';
+  const sha256 = '4bf4af9afe65dbd3e15ff48c3ec4c9b8c89fda89a13945f6807a45ed774ee275';
 
   const handleCopySha = () => {
     navigator.clipboard.writeText(sha256);
@@ -74,7 +74,7 @@ export const DownloadSection: React.FC<DownloadSectionProps> = ({
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
           <button
             type="button"
-            onClick={() => window.location.assign('/FastKey.exe')}
+            onClick={() => window.location.assign('https://github.com/CHUTIPONX/Fastkey/raw/refs/heads/main/public/FastKey.exe')}
             className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white text-black font-extrabold text-base shadow-[0_0_25px_rgba(255,255,255,0.3)] hover:bg-zinc-200 hover:scale-[1.02] transition-all flex items-center justify-center gap-3 group"
           >
             <Download className="w-5 h-5 group-hover:translate-y-0.5 transition-transform" />
