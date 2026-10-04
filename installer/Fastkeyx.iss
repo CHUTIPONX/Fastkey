@@ -1,4 +1,5 @@
 ; Fastkeyx Windows Installer
+; Desktop shortcut enabled
 #define MyAppName "Fastkeyx"
 #define MyAppVersion "1.0.0"
 #define MyAppPublisher "Fastkeyx"
