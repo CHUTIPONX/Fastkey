@@ -1,6 +1,6 @@
 {
-  "name": "FastKey",
-  "description": "User-friendly keyboard shortcut and auto-reply utility website with easy download and step-by-step documentation.",
+  "name": "Fastkeyx — Windows Utility",
+  "description": "Fast, simple, and powerful Windows utility engineered to streamline modern Windows workflows with zero latency.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
