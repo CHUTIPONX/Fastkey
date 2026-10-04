@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const DOWNLOAD_URL = 'https://github.com/CHUTIPONX/Fastkey/raw/1bd80a927c966ca580fffcc73377318c0e3b64ad/public/Fastkeyx.exe';
+const DOWNLOAD_URL = 'https://github.com/CHUTIPONX/Fastkey/raw/refs/heads/main/public/Fastkeyx-Setup.exe';
 const SHA256_HASH = '4bf4af9afe65dbd3e15ff48c3ec4c9b8c89fda89a13945f6807a45ed774ee275';
 
 type MockupTab = 'quick-actions' | 'hotkey-matrix' | 'system-hooks' | 'preferences';
@@ -141,7 +141,7 @@ export default function App() {
                     className="inline-flex items-center gap-3 rounded-full bg-slate-900 px-7 py-3.5 font-semibold text-white shadow-[0_12px_30px_rgba(15,23,42,0.22)] transition hover:-translate-y-0.5 hover:bg-black"
                   >
                     <Icon name="download" className="text-[20px]" />
-                    Download for Windows
+                    Install on Windows
                   </button>
                   <button
                     onClick={() => scrollToSection('features', setActiveNav)}
@@ -155,7 +155,7 @@ export default function App() {
                 <div className="mt-5 flex flex-wrap gap-2 font-label-mono-sm text-slate-600">
                   <span className="rounded-full border border-slate-200 bg-white px-3 py-1">Windows 11 / 10</span>
                   <span className="rounded-full border border-slate-200 bg-white px-3 py-1">x64 Native</span>
-                  <span className="rounded-full border border-slate-200 bg-white px-3 py-1">Free Download</span>
+                  <span className="rounded-full border border-slate-200 bg-white px-3 py-1">Desktop Shortcut Included</span>
                   <span className="rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-sky-800">Portable</span>
                 </div>
               </div>
@@ -299,15 +299,15 @@ export default function App() {
                 <Icon name="verified" className="text-[15px] text-sky-600" />
                 STABLE PRODUCTION BUILD
               </span>
-              <h2 className="mt-4 font-headline-xl font-bold tracking-tight">Download Fastkeyx</h2>
-              <p className="mx-auto mt-2 max-w-md font-body-lg text-slate-600">Get Fastkeyx for Windows as a compact portable executable.</p>
+              <h2 className="mt-4 font-headline-xl font-bold tracking-tight">Install Fastkeyx</h2>
+              <p className="mx-auto mt-2 max-w-md font-body-lg text-slate-600">Install Fastkeyx and create a desktop shortcut automatically.</p>
 
               <div className="mx-auto mt-8 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4">
                 {[
                   ['Version', 'v1.0.0'],
                   ['Platform', 'Windows'],
                   ['Architecture', '64-bit'],
-                  ['Package', 'Fastkeyx.exe'],
+                  ['Package', 'Fastkeyx-Setup.exe'],
                 ].map(([label, value]) => (
                   <div key={label} className="rounded-xl border border-slate-200/80 bg-slate-50 p-3.5">
                     <div className="font-label-mono-sm uppercase text-slate-500">{label}</div>
