@@ -1,0 +1,59 @@
+name: Build Fastkeyx Installer
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "installer/Fastkeyx.iss"
+      - "public/Fastkeyx.exe"
+
+permissions:
+  contents: write
+
+jobs:
+  build-installer:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Inno Setup 7
+        shell: pwsh
+        run: |
+          winget install --id JRSoftware.InnoSetup.7 -e --silent --accept-package-agreements --accept-source-agreements
+
+      - name: Build installer
+        shell: pwsh
+        run: |
+          $candidates = @(
+            "$env:ProgramFiles\Inno Setup 7\ISCC.exe",
+            "$env:ProgramFiles(x86)\Inno Setup 7\ISCC.exe"
+          )
+          $iscc = $candidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+          if (-not $iscc) {
+            throw "ISCC.exe was not found after installing Inno Setup 7."
+          }
+          & $iscc "installer\Fastkeyx.iss"
+          if ($LASTEXITCODE -ne 0) {
+            throw "Inno Setup compilation failed."
+          }
+          if (-not (Test-Path "public\Fastkeyx-Setup.exe")) {
+            throw "Installer output was not created."
+          }
+
+      - name: Commit installer to repository
+        shell: pwsh
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/Fastkeyx-Setup.exe
+          if (-not (git diff --cached --quiet)) {
+            git commit -m "build: publish Fastkeyx installer"
+            git push
+          } else {
+            Write-Host "Installer is already up to date."
+          }
