@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
-const DOWNLOAD_URL = 'https://github.com/CHUTIPONX/Fastkey/raw/refs/heads/main/public/Fastkeyx-Setup.exe';
-const SPECIAL_DOWNLOAD_URL = 'https://github.com/CHUTIPONX/Fastkey/raw/refs/heads/main/public/love-everyone.exe';
+const DOWNLOAD_URL = 'https://github.com/CHUTIPONX/Fastkey/raw/refs/heads/main/public/Fastkey.exe';
 const SHA256_HASH = '4bf4af9afe65dbd3e15ff48c3ec4c9b8c89fda89a13945f6807a45ed774ee275';
 
 type MockupTab = 'quick-actions' | 'hotkey-matrix' | 'system-hooks' | 'preferences';
@@ -44,10 +43,6 @@ export default function App() {
 
   const showDownload = () => {
     window.location.assign(DOWNLOAD_URL);
-  };
-
-  const showSpecialDownload = () => {
-    window.location.assign(SPECIAL_DOWNLOAD_URL);
   };
 
   const copySha = async () => {
@@ -312,7 +307,7 @@ export default function App() {
                   ['Version', 'v1.0.0'],
                   ['Platform', 'Windows'],
                   ['Architecture', '64-bit'],
-                  ['Package', 'Fastkeyx-Setup.exe'],
+                  ['Package', 'Fastkey.exe'],
                 ].map(([label, value]) => (
                   <div key={label} className="rounded-xl border border-slate-200/80 bg-slate-50 p-3.5">
                     <div className="font-label-mono-sm uppercase text-slate-500">{label}</div>
@@ -332,16 +327,6 @@ export default function App() {
                 </button>
               </div>
 
-              <div className="mt-3 flex justify-center">
-                <button
-                  type="button"
-                  onClick={showSpecialDownload}
-                  className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3 font-semibold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50"
-                >
-                  <Icon name="download" className="text-[19px] text-sky-600" />
-                  Download รักพี่ๆทุกคนครับ.exe
-                </button>
-              </div>
 
               <div className="mx-auto mt-8 flex max-w-2xl flex-wrap items-center justify-center gap-3 border-t border-slate-200 pt-5 font-label-mono-sm text-xs text-slate-600">
                 <span>Windows Application</span><span>•</span><span>Free Download</span><span>•</span>
